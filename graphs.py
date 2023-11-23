@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.patches import ConnectionPatch
 import seaborn as sea 
 import pandas as pd 
 import numpy as np 
@@ -44,8 +45,8 @@ plt.rcParams.update({
     "ytick.labelsize": 8
 })
 
-sea.
-
+cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
+linsize = 0.5
 
 #OriginalFIM
 def make_OGFIM():
@@ -87,22 +88,66 @@ def make_T1GFIM():
     T1FIMstep = T1FIMstep.iloc[::4]
     print(T1FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5))
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5),gridspec_kw={'wspace': 0.08})
     sea.set(style="whitegrid")
     
-    sea.lineplot(ax=ax1,x="Step",y="0",data=T1FIMstep,label="0 (Low)",linewidth=0.5,color="")
-    sea.lineplot(ax=ax1,x="Step",y="1",data=T1FIMstep,label="1",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="2",data=T1FIMstep,label="2",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="3",data=T1FIMstep,label="3",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="4",data=T1FIMstep,label="4",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="5",data=T1FIMstep,label="5",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="6",data=T1FIMstep,label="6",linewidth=0.5)
-    sea.lineplot(ax=ax1,x="Step",y="7",data=T1FIMstep,label="7 (High)",linewidth=0.5)
+    sea.lineplot(ax=ax1,x="Step",y="0",data=T1FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=T1FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=T1FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=T1FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=T1FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=T1FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=T1FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=T1FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
-    plt.ylabel("T1 GFIM")
-    plt.xlabel("Step")
+    #plt.ylabel("T1 GFIM")
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylim([1,250])
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([0,1500])
     ax1.get_legend().remove()
 
+    #Epoch graphs
+    T1FIMepoch = pd.read_csv('T1_epoch.csv', sep=',')
+    print(T1FIMepoch.head())
+    sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=T1FIMepoch,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=T1FIMepoch,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=T1FIMepoch,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.set_xlim([0,65])
+
+    ax2.set_ylabel("Loss GFIM")
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_yscale('log')
+
+    ax2.get_legend().remove()
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.85),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.85),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
     fig.savefig("Pics/T1_GFIM.png", bbox_inches='tight', dpi=500)
     #T1FIMepoch = pd.read_csv('T1_epoch.csv', sep=',')
 
