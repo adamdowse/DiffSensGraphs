@@ -391,4 +391,27 @@ def make_T4GFIM():
     ax1.add_artist(con2)
     fig.savefig("Pics/T4_GFIM.png", bbox_inches='tight', dpi=500)
 
-make_T1GFIM()
+def make_legend():
+    T1FIMstep = pd.read_csv('T1_step.csv', sep=',')
+    print(T1FIMstep.head())
+
+    fig, ax1 = plt.subplots(1,1,figsize=[252,20])
+    
+    sea.set(style="whitegrid")
+    linsize = 3
+    
+    sea.lineplot(ax=ax1,x="Step",y="0",data=T1FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=T1FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=T1FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=T1FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=T1FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=T1FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=T1FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=T1FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    label_params = ax1.get_legend_handles_labels()
+    legendfig,lax = plt.subplots(1,1,figsize=set_size(516,0.5))
+    lax.axis(False)
+    lax.legend(*label_params,loc='center',ncol=8,frameon=False)
+    legendfig.savefig("Pics/GFIM_legend.png", bbox_inches='tight', dpi=500)
+
+make_legend()
