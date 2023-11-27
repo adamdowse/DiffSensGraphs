@@ -7,13 +7,15 @@ import numpy as np
 
  
 
-def set_size(width, fraction=1):
+def set_size(width, height=None, fraction=1):
     """ Set aesthetic figure dimensions to avoid scaling in latex.
     
     Parameters
     ----------
     width: float
             Width in pts
+    height: float
+            Height in pts
     fraction: float
             Fraction of the width which you wish the figure to occupy
     
@@ -31,8 +33,13 @@ def set_size(width, fraction=1):
     # Figure width in inches
     fig_width_in = fig_width_pt * inches_per_pt
     # Figure height in inches
-    fig_height_in = fig_width_in * golden_ratio
-    fig_dim = (fig_width_in, fig_height_in)
+    if height is None:
+        fig_height_in = fig_width_in * golden_ratio
+        fig_dim = (fig_width_in, fig_height_in)
+    else:
+        fig_height_pt = height
+        fig_height_in = fig_height_pt * inches_per_pt
+        fig_dim = (fig_width_in, fig_height_in)
     return fig_dim
 
 
@@ -414,4 +421,199 @@ def make_legend():
     lax.legend(*label_params,loc='center',ncol=8,frameon=False)
     legendfig.savefig("Pics/GFIM_legend.png", bbox_inches='tight', dpi=500)
 
-make_legend()
+def make_HAM():
+    FIMstep = pd.read_csv('HAM_nopre.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax1 = plt.subplots(1,1,figsize=set_size(252))
+
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_xlabel("Epoch")
+    ax1.set_xlim([1,35])
+    ax1.set_xticks([1,5,10,15,20,25,30,35])
+    
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_yscale('log')
+    ax1.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax1.get_legend().remove()
+
+    fig.savefig("Pics/HAM.png", bbox_inches='tight', dpi=500)
+
+    FIMstep = pd.read_csv('HAM_pre.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax1 = plt.subplots(1,1,figsize=set_size(252))
+
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_xlabel("Epoch")
+    ax1.set_xlim([1,20])
+    ax1.set_xticks([1,5,10,15,20])
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_yscale('log')
+    ax1.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax1.get_legend().remove()
+
+    fig.savefig("Pics/HAM_pre.png", bbox_inches='tight', dpi=500)
+
+def make_VIT():
+    FIMstep = pd.read_csv('VIT001.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax1 = plt.subplots(1,1,figsize=set_size(252))
+
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_xlabel("Epoch")
+    ax1.set_xlim([1,150])
+    ax1.set_xticks([1,20,40,60,80,100,120,140,160])
+
+    ax1.set_ylabel("Loss GFIM")
+    #ax1.set_yscale('log')
+    ax1.set_ylim([2,5])
+    ax1.get_legend().remove()
+
+    con1 = ConnectionPatch(xyA=(0,0.285),
+                        xyB=(1,0.285),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax1,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(0,0.115),
+                        xyB=(1,0.115),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax1,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
+
+    #add text labelling the value out of axis range
+    ax1.text(0.8,0.7,"7509.6",transform=ax1.transAxes,ha='center',va='center',bbox=dict(boxstyle="square",ec=(0, 0, 0),fc=(1., 1, 1)))
+
+    con3 = ConnectionPatch(xyA=(0.75,0.7),
+                        xyB=(0.6,1),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax1,
+                        color="black",
+                        linestyle="-",
+                        arrowstyle="->",)
+    ax1.add_artist(con3)
+
+    fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
+
+    FIMstep = pd.read_csv('VIT0001.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+
+    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax.get_legend().remove()
+    ax.set_xlabel("Epoch")
+    ax.set_yscale('log')
+    ax.set_ylabel("Loss GFIM")
+    ax.set_xticks([1,25,50,75,100])
+    ax.set_xlim([1,100])
+
+    fig.savefig("Pics/VIT0001.png", bbox_inches='tight', dpi=500)
+
+
+
+    FIMstep = pd.read_csv('VIT00001.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+
+    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax.get_legend().remove()
+    ax.set_xlabel("Epoch")
+    ax.set_yticks([1-3,1e-1,1e1,1e3,1e5])
+    ax.set_yscale('log')
+    ax.set_ylabel("")
+    #ax.set_ylabel("Loss GFIM")
+    ax.set_xticks([1,75,150,225,300,375])
+    ax.set_xlim([1,375])
+
+    fig.savefig("Pics/VIT00001.png", bbox_inches='tight', dpi=500)
+
+
+
+
+
+
+    FIMstep = pd.read_csv('VIT000001.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    print(FIMstep.head())
+
+    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+
+    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax.get_legend().remove()
+    ax.set_xlabel("Epoch")
+    ax.set_yscale('log')
+    ax.set_yticks([1e2,1e3,1e4,1e5])
+    ax.set_ylabel("")
+    ax.set_xticks([1,75,150,225,300,375])
+    ax.set_xlim([1,375])
+    
+
+    fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
+
+make_VIT()
