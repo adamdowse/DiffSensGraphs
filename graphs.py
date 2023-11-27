@@ -533,11 +533,16 @@ def make_VIT():
 
     fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
 
+
+
+
+
+
     FIMstep = pd.read_csv('VIT0001.csv', sep=',')
     FIMstep['Step'] = FIMstep['Step']+1
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=120))
 
     sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
@@ -563,7 +568,7 @@ def make_VIT():
     FIMstep['Step'] = FIMstep['Step']+1
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=120))
 
     sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
@@ -578,7 +583,7 @@ def make_VIT():
     ax.set_xlabel("Epoch")
     ax.set_yticks([1-3,1e-1,1e1,1e3,1e5])
     ax.set_yscale('log')
-    ax.set_ylabel("")
+    ax.set_ylabel("Loss GFIM")
     #ax.set_ylabel("Loss GFIM")
     ax.set_xticks([1,75,150,225,300,375])
     ax.set_xlim([1,375])
@@ -594,7 +599,7 @@ def make_VIT():
     FIMstep['Step'] = FIMstep['Step']+1
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(170,height=200))
+    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=120))
 
     sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
@@ -609,7 +614,7 @@ def make_VIT():
     ax.set_xlabel("Epoch")
     ax.set_yscale('log')
     ax.set_yticks([1e2,1e3,1e4,1e5])
-    ax.set_ylabel("")
+    ax.set_ylabel("Loss GFIM")
     ax.set_xticks([1,75,150,225,300,375])
     ax.set_xlim([1,375])
     
