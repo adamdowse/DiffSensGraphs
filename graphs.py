@@ -542,7 +542,7 @@ def make_VIT():
     FIMstep['Step'] = FIMstep['Step']+1
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=180))
+    fig, ax = plt.subplots(1,1,figsize=set_size(160,height=180))
 
     sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
