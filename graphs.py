@@ -3,6 +3,7 @@ from matplotlib.patches import ConnectionPatch
 import seaborn as sea 
 import pandas as pd 
 import numpy as np 
+import matplotlib.ticker as ticker
 
 
  
@@ -474,6 +475,7 @@ def make_HAM():
     fig.savefig("Pics/HAM_pre.png", bbox_inches='tight', dpi=500)
 
 def make_VIT():
+    #001
     FIMstep = pd.read_csv('VIT001.csv', sep=',')
     FIMstep['Step'] = FIMstep['Step']+1
     print(FIMstep.head())
@@ -537,88 +539,254 @@ def make_VIT():
 
 
 
+    
+def make_VIT0001():
+        #0001--------------------------------------------------------------------------------
 
-    FIMstep = pd.read_csv('VIT0001.csv', sep=',')
-    FIMstep['Step'] = FIMstep['Step']+1
+    FIMstep = pd.read_csv('VIT0001_step.csv', sep=',')
+    #T1FIMstep = T1FIMstep.iloc[::4]
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(160,height=180))
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    sea.set(style="whitegrid")
+    
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    
+    #plt.ylabel("T1 GFIM")
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylim([1e2,10000])
+    ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
-    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
-    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
-    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
-    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
-    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
-    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
-    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
-    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,200])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.get_legend().remove()
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
 
-    ax.get_legend().remove()
-    ax.set_xlabel("Epoch")
-    ax.set_yscale('log')
-    ax.set_ylabel("Loss GFIM")
-    ax.set_xticks([1,25,50,75,100])
-    ax.set_xlim([1,100])
+    #Epoch graphs
+    T1FIMepoch = pd.read_csv('VIT0001.csv', sep=',')
+    T1FIMepoch['Step'] = T1FIMepoch['Step']+1
+    #T1FIMepoch = T1FIMepoch.iloc[:65]
+    #print(T1FIMepoch.head())
+    sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=T1FIMepoch,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=T1FIMepoch,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=T1FIMepoch,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.get_legend().remove()
+    ax2.set_xlabel("Epoch")
+    ax2.set_yscale('log')
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_ylabel("Loss GFIM")
+    ax2.set_xticks([1,25,50,75,100])
+    ax2.set_xlim([1,100])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.95),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.8),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
 
     fig.savefig("Pics/VIT0001.png", bbox_inches='tight', dpi=500)
 
 
 
-    FIMstep = pd.read_csv('VIT00001.csv', sep=',')
-    FIMstep['Step'] = FIMstep['Step']+1
+def make_VIT00001():
+
+    #00001--------------------------------------------------------------------------------
+
+    FIMstep = pd.read_csv('VIT00001_step.csv', sep=',')
+    #T1FIMstep = T1FIMstep.iloc[::4]
     print(FIMstep.head())
 
-    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=180))
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    sea.set(style="whitegrid")
+    
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    
+    #plt.ylabel("T1 GFIM")
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylim([1e2,1e5])
+    ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
-    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
-    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
-    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
-    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
-    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
-    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
-    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
-    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,200])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.get_legend().remove()
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
 
-    ax.get_legend().remove()
-    ax.set_xlabel("Epoch")
-    ax.set_yticks([1-3,1e-1,1e1,1e3,1e5])
-    ax.set_yscale('log')
-    ax.set_ylabel("Loss GFIM")
+    #Epoch graphs
+    T1FIMepoch = pd.read_csv('VIT00001.csv', sep=',')
+    T1FIMepoch['Step'] = T1FIMepoch['Step']+1
+    #T1FIMepoch = T1FIMepoch.iloc[:65]
+    #print(T1FIMepoch.head())
+    sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=T1FIMepoch,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=T1FIMepoch,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=T1FIMepoch,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    #set the range of x axis
+    ax2.get_legend().remove()
+    ax2.set_xlabel("Epoch")
+    ax2.set_yscale('log')
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_ylabel("Loss GFIM")
     #ax.set_ylabel("Loss GFIM")
-    ax.set_xticks([1,75,150,225,300,375])
-    ax.set_xlim([1,375])
+    ax2.set_xticks([1,100,200,300,375])
+    ax2.set_xlim([1,375])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.95),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.65),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
 
     fig.savefig("Pics/VIT00001.png", bbox_inches='tight', dpi=500)
 
-
-
-
-
-
-    FIMstep = pd.read_csv('VIT000001.csv', sep=',')
-    FIMstep['Step'] = FIMstep['Step']+1
-    print(FIMstep.head())
-
-    fig, ax = plt.subplots(1,1,figsize=set_size(165,height=180))
-
-    sea.lineplot(ax=ax,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
-    sea.lineplot(ax=ax,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
-    sea.lineplot(ax=ax,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
-    sea.lineplot(ax=ax,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
-    sea.lineplot(ax=ax,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
-    sea.lineplot(ax=ax,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
-    sea.lineplot(ax=ax,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
-    sea.lineplot(ax=ax,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
-
-    ax.get_legend().remove()
-    ax.set_xlabel("Epoch")
-    ax.set_yscale('log')
-    ax.set_yticks([1e2,1e3,1e4,1e5])
-    ax.set_ylabel("Loss GFIM")
-    ax.set_xticks([1,75,150,225,300,375])
-    ax.set_xlim([1,375])
+def make_VIT000001():
     
+    #000001--------------------------------------------------------------------------------
+
+    FIMstep = pd.read_csv('VIT000001_step.csv', sep=',')
+    #T1FIMstep = T1FIMstep.iloc[::4]
+    #print(T1FIMstep.head())
+
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    sea.set(style="whitegrid")
+    
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylim([5000,20000])
+    #ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,50,100,150,200,250])
+
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,200])
+    ax1.yaxis.set_minor_locator(ticker.AutoMinorLocator(5))
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.get_legend().remove()
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    #Epoch graphs
+    T1FIMepoch = pd.read_csv('VIT000001.csv', sep=',')
+    T1FIMepoch['Step'] = T1FIMepoch['Step']+1
+    #T1FIMepoch = T1FIMepoch.iloc[:65]
+    #print(T1FIMepoch.head())
+    sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=T1FIMepoch,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=T1FIMepoch,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=T1FIMepoch,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    #set the range of x axis
+    ax2.get_legend().remove()
+    ax2.set_xlabel("Epoch")
+    ax2.set_yscale('log')
+    ax2.set_ylim([1e2,1e5])
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_ylabel("Loss GFIM")
+    #ax.set_ylabel("Loss GFIM")
+    ax2.set_xticks([1,100,200,300,375])
+    ax2.set_xlim([1,375])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.82),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.5),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
 
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
-make_VIT()
+make_VIT000001()
