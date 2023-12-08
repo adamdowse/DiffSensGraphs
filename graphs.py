@@ -474,6 +474,52 @@ def make_HAM():
 
     fig.savefig("Pics/HAM_pre.png", bbox_inches='tight', dpi=500)
 
+def make_HAMcom():
+    FIMstep = pd.read_csv('HAM_nopre.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+    #take first 20 epochs
+    FIMstep = FIMstep.iloc[:20]
+    print(FIMstep.head())
+
+    FIM1step = pd.read_csv('HAM_pre.csv', sep=',')
+    FIM1step['Step'] = FIM1step['Step']+1
+
+    fig, ax1 = plt.subplots(1,1,figsize=set_size(252))
+
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIM1step,label="0 (Low)",linewidth=linsize,color=cols[0],linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIM1step,label="1",linewidth=linsize,color=cols[1],linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIM1step,label="2",linewidth=linsize,color=cols[2], linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIM1step,label="3",linewidth=linsize,color=cols[3],linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIM1step,label="4",linewidth=linsize,color=cols[4], linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIM1step,label="5",linewidth=linsize,color=cols[5], linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIM1step,label="6",linewidth=linsize,color=cols[6], linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIM1step,label="7 (High)",linewidth=linsize,color=cols[7], linestyle='--')
+
+    ax1.set_xlabel("Epoch")
+    ax1.set_xlim([1,20])
+    ax1.set_xticks([1,5,10,15,20])
+    
+    ax1.set_ylabel("Loss GFIM")
+    ax1.set_yscale('log')
+    ax1.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax1.get_legend().remove()
+
+    fig.savefig("Pics/HAM1.png", bbox_inches='tight', dpi=500)
+
+    
+
+
+    
+
 def make_VIT():
     #001
     FIMstep = pd.read_csv('VIT001.csv', sep=',')
@@ -789,4 +835,4 @@ def make_VIT000001():
 
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
-make_VIT000001()
+make_HAMcom()
