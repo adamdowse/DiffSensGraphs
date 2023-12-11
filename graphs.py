@@ -484,7 +484,43 @@ def make_HAMcom():
     FIM1step = pd.read_csv('HAM_pre.csv', sep=',')
     FIM1step['Step'] = FIM1step['Step']+1
 
-    fig, ax1 = plt.subplots(1,1,figsize=set_size(252))
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(252),width_ratios=[1, 2],gridspec_kw={'wspace': 0.12})
+
+    sea.lineplot(ax=ax2,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    sea.lineplot(ax=ax2,x="Step",y="0",data=FIM1step,label="0 (Low)",linewidth=linsize,color=cols[0],linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="1",data=FIM1step,label="1",linewidth=linsize,color=cols[1],linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="2",data=FIM1step,label="2",linewidth=linsize,color=cols[2], linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="3",data=FIM1step,label="3",linewidth=linsize,color=cols[3],linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="4",data=FIM1step,label="4",linewidth=linsize,color=cols[4], linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="5",data=FIM1step,label="5",linewidth=linsize,color=cols[5], linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="6",data=FIM1step,label="6",linewidth=linsize,color=cols[6], linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="7",data=FIM1step,label="7 (High)",linewidth=linsize,color=cols[7], linestyle='--')
+
+    ax2.set_xlabel("Epoch")
+    ax2.set_xlim([1,20])
+    ax2.set_xticks([1,5,10,15,20])
+    
+    ax2.set_ylabel("Loss GFIM")
+    ax2.set_yscale('log')
+    ax2.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.get_legend().remove()
+
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+
+    FIMstep = pd.read_csv('HAM_step.csv', sep=',')
+    FIMstep['Step'] = FIMstep['Step']+1
+
+    FIM1step = pd.read_csv('HAM_step_pre.csv', sep=',')
+    FIM1step['Step'] = FIM1step['Step']+1
 
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
@@ -504,21 +540,37 @@ def make_HAMcom():
     sea.lineplot(ax=ax1,x="Step",y="6",data=FIM1step,label="6",linewidth=linsize,color=cols[6], linestyle='--')
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIM1step,label="7 (High)",linewidth=linsize,color=cols[7], linestyle='--')
 
-    ax1.set_xlabel("Epoch")
-    ax1.set_xlim([1,20])
-    ax1.set_xticks([1,5,10,15,20])
-    
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,200])
+    ax1.set_xticks([1,100,200])
     ax1.set_ylabel("Loss GFIM")
     ax1.set_yscale('log')
-    ax1.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax1.set_ylim([1e0,1e5])
     ax1.get_legend().remove()
 
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,1),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.7),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
+    
+
+
+
     fig.savefig("Pics/HAM1.png", bbox_inches='tight', dpi=500)
-
-    
-
-
-    
 
 def make_VIT():
     #001
@@ -581,11 +633,6 @@ def make_VIT():
 
     fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
 
-
-
-
-
-    
 def make_VIT0001():
         #0001--------------------------------------------------------------------------------
 
@@ -666,8 +713,6 @@ def make_VIT0001():
     ax1.add_artist(con2)
 
     fig.savefig("Pics/VIT0001.png", bbox_inches='tight', dpi=500)
-
-
 
 def make_VIT00001():
 
