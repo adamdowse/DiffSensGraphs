@@ -53,7 +53,8 @@ plt.rcParams.update({
     "ytick.labelsize": 8
 })
 
-cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
+#cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
+cols = ["#0410ff","#383be6","#5c4ccd","#7e53b3","#9e5398","#bf4d7b","#df3e59","#ff1223"]
 linsize = 0.5
 
 #OriginalFIM
@@ -93,10 +94,10 @@ def make_OGFIM():
 
 def make_T1GFIM():
     T1FIMstep = pd.read_csv('T1_step.csv', sep=',')
-    T1FIMstep = T1FIMstep.iloc[::4]
+    T1FIMstep = T1FIMstep.iloc[::15]
     print(T1FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5),gridspec_kw={'wspace': 0.08})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.15},width_ratios=[1, 2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=T1FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -114,9 +115,11 @@ def make_T1GFIM():
     ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,1650])
+    ax1.set_xlim([1,1500])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,500,1000,1500])
+    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
 
     #Epoch graphs
@@ -144,6 +147,9 @@ def make_T1GFIM():
     ax2.set_yscale('log')
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
 
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
     ax2.get_legend().remove()
 
     con1 = ConnectionPatch(xyA=(1,1),
@@ -168,11 +174,9 @@ def make_T1GFIM():
 
 def make_T2GFIM():
     FIMstep = pd.read_csv('T2_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::4]
-    
-    print(FIMstep.head())
+    FIMstep = FIMstep.iloc[::15]
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5),gridspec_kw={'wspace': 0.08})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1, 2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -192,7 +196,10 @@ def make_T2GFIM():
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,1650])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,500,1000,1500])
+    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+    
     ax1.get_legend().remove()
 
     #Epoch graphs
@@ -218,7 +225,10 @@ def make_T2GFIM():
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
+    ax2.set_ylim([1e-12,1e4])
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
 
     ax2.get_legend().remove()
 
@@ -244,11 +254,11 @@ def make_T2GFIM():
 
 def make_T3GFIM():
     FIMstep = pd.read_csv('T3_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::8]
+    FIMstep = FIMstep.iloc[::30]
     
     print(FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5),gridspec_kw={'wspace': 0.14})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.14},width_ratios=[1, 2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -266,9 +276,11 @@ def make_T3GFIM():
     ax1.yaxis.set_ticks([1,200,400,600,800,1000,1200,1400,1600,1800,2000])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,3100])
+    ax1.set_xlim([1,3000])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,1000,2000,3000])
+    ax1.xaxis.set_ticks([1,1500,3000])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
 
     #Epoch graphs
@@ -289,14 +301,17 @@ def make_T3GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,65])
+    ax2.set_xlim([1,60])
     ax2.xaxis.set_ticks([1,20,40,60])
 
     ax2.set_ylabel("Loss GFIM")
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
+    ax2.set_ylim([1e-12,1e5])
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
 
     ax2.get_legend().remove()
 
@@ -322,11 +337,9 @@ def make_T3GFIM():
 
 def make_T4GFIM():
     FIMstep = pd.read_csv('T4_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::8]
-    
-    print(FIMstep.head())
+    FIMstep = FIMstep.iloc[::15]
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,0.5),gridspec_kw={'wspace': 0.14})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.14},width_ratios=[1, 2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -341,13 +354,15 @@ def make_T4GFIM():
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
     ax1.set_ylim([1,60000])
-    ax1.yaxis.set_ticks([1,20000,40000,60000])
+    ax1.yaxis.set_ticks([1,10000,20000,30000,40000,50000,60000])
     #ax1.set_yscale('log')
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,1300])
+    ax1.set_xlim([1,1200])
     start,end = ax1.get_xlim()
     ax1.xaxis.set_ticks([1,400,800,1200])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
 
     #Epoch graphs
@@ -368,14 +383,16 @@ def make_T4GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,55])
-    ax2.xaxis.set_ticks([1,20,40])
+    ax2.set_xlim([1,50])
+    ax2.xaxis.set_ticks([1,10,20,30,40,50])
 
     ax2.set_ylabel("Loss GFIM")
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
     ax2.yaxis.set_ticks([1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4,1e6])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
 
     ax2.get_legend().remove()
 
@@ -634,13 +651,13 @@ def make_VIT():
     fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
 
 def make_VIT0001():
-        #0001--------------------------------------------------------------------------------
+    #0001--------------------------------------------------------------------------------
 
     FIMstep = pd.read_csv('VIT0001_step.csv', sep=',')
     #T1FIMstep = T1FIMstep.iloc[::4]
     print(FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1,2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -722,7 +739,7 @@ def make_VIT00001():
     #T1FIMstep = T1FIMstep.iloc[::4]
     print(FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1,2])
     sea.set(style="whitegrid")
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
@@ -743,7 +760,7 @@ def make_VIT00001():
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,200])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.xaxis.set_ticks([1,100,200])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -805,8 +822,10 @@ def make_VIT000001():
     #T1FIMstep = T1FIMstep.iloc[::4]
     #print(T1FIMstep.head())
 
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1,2])
     sea.set(style="whitegrid")
+
+    
     
     sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
@@ -826,7 +845,7 @@ def make_VIT000001():
     ax1.set_xlim([1,200])
     ax1.yaxis.set_minor_locator(ticker.AutoMinorLocator(5))
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.xaxis.set_ticks([1,100,200])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -880,4 +899,6 @@ def make_VIT000001():
 
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
-make_HAMcom()
+#make_VIT00001()
+make_VIT000001()
+#make_VIT()
