@@ -111,8 +111,8 @@ def make_T1GFIM():
     
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
-    ax1.set_ylim([1,50])
-    ax1.yaxis.set_ticks([1,10,20,30,40,50])
+    ax1.set_ylim([1,40])
+    ax1.yaxis.set_ticks([1,10,20,30,40])
 
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,100])
@@ -901,5 +901,5 @@ def make_VIT000001():
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
 #make_VIT00001()
-make_VIT000001()
+make_T1GFIM()
 #make_VIT()
