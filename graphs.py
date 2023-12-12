@@ -289,7 +289,7 @@ def make_T3GFIM():
     #add 1 to the step
     FIMepoch['Step'] = FIMepoch['Step']+1
     #use the top 60 epochs
-    FIMepoch = FIMepoch.iloc[:60]
+    #FIMepoch = FIMepoch.iloc[:60]
     print(FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -302,8 +302,8 @@ def make_T3GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,60])
-    ax2.xaxis.set_ticks([1,20,40,60])
+    ax2.set_xlim([1,160])
+    ax2.xaxis.set_ticks([1,50,100,150])
 
     ax2.set_ylabel("Loss GFIM")
     ax2.yaxis.set_label_position("right")
@@ -901,5 +901,5 @@ def make_VIT000001():
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
 #make_VIT00001()
-make_T1GFIM()
+make_T3GFIM()
 #make_VIT()
