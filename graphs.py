@@ -94,7 +94,7 @@ def make_OGFIM():
 
 def make_T1GFIM():
     T1FIMstep = pd.read_csv('T1_step.csv', sep=',')
-    T1FIMstep = T1FIMstep.iloc[::15]
+    T1FIMstep = T1FIMstep.iloc[::1]
     print(T1FIMstep.head())
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.15},width_ratios=[1, 2])
@@ -111,13 +111,13 @@ def make_T1GFIM():
     
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
-    ax1.set_ylim([1,250])
-    ax1.yaxis.set_ticks([1,50,100,150,200,250])
+    ax1.set_ylim([1,50])
+    ax1.yaxis.set_ticks([1,10,20,30,40,50])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,1500])
+    ax1.set_xlim([1,100])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.xaxis.set_ticks([1,50,100])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -174,7 +174,7 @@ def make_T1GFIM():
 
 def make_T2GFIM():
     FIMstep = pd.read_csv('T2_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::15]
+    FIMstep = FIMstep.iloc[::1]
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1, 2])
     sea.set(style="whitegrid")
@@ -190,13 +190,13 @@ def make_T2GFIM():
     
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
-    ax1.set_ylim([1,800])
-    ax1.yaxis.set_ticks([1,200,400,600,800])
+    ax1.set_ylim([1,200])
+    ax1.yaxis.set_ticks([1,50,100,150,200])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,1650])
+    ax1.set_xlim([1,100])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.xaxis.set_ticks([1,50,100])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     
@@ -254,7 +254,7 @@ def make_T2GFIM():
 
 def make_T3GFIM():
     FIMstep = pd.read_csv('T3_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::30]
+    FIMstep = FIMstep.iloc[::1]
     
     print(FIMstep.head())
 
@@ -273,12 +273,13 @@ def make_T3GFIM():
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
     ax1.set_ylim([1,2000])
-    ax1.yaxis.set_ticks([1,200,400,600,800,1000,1200,1400,1600,1800,2000])
+    ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,200,400,600,800,1000,1200,1400,1600,1800,2000])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,3000])
+    ax1.set_xlim([1,100])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,1500,3000])
+    ax1.xaxis.set_ticks([1,50,100])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -337,7 +338,7 @@ def make_T3GFIM():
 
 def make_T4GFIM():
     FIMstep = pd.read_csv('T4_step.csv', sep=',')
-    FIMstep = FIMstep.iloc[::15]
+    #FIMstep = FIMstep.iloc[::15]
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.14},width_ratios=[1, 2])
     sea.set(style="whitegrid")
@@ -353,14 +354,14 @@ def make_T4GFIM():
     
     #plt.ylabel("T1 GFIM")
     ax1.set_ylabel("Loss GFIM")
-    ax1.set_ylim([1,60000])
-    ax1.yaxis.set_ticks([1,10000,20000,30000,40000,50000,60000])
+    ax1.set_ylim([10,100000])
+    ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,100000])
     #ax1.set_yscale('log')
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,1200])
-    start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,400,800,1200])
+    ax1.set_xlim([1,50])
+    ax1.xaxis.set_ticks([1,25,50])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -397,7 +398,7 @@ def make_T4GFIM():
     ax2.get_legend().remove()
 
     con1 = ConnectionPatch(xyA=(1,1),
-                        xyB=(0,0.91),
+                        xyB=(0,0.95),
                         coordsA="axes fraction",
                         coordsB="axes fraction",
                         axesA=ax1,
@@ -405,7 +406,7 @@ def make_T4GFIM():
                         color="black",
                         linestyle="--",)
     con2 = ConnectionPatch(xyA=(1,0),
-                        xyB=(0,0.62),
+                        xyB=(0,0.70),
                         coordsA="axes fraction",
                         coordsB="axes fraction",
                         axesA=ax1,
@@ -678,7 +679,7 @@ def make_VIT0001():
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,200])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100,150,200])
+    ax1.xaxis.set_ticks([1,100,200])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -758,9 +759,9 @@ def make_VIT00001():
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,200])
+    ax1.set_xlim([1,300])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,100,200])
+    ax1.xaxis.set_ticks([1,100,200,300])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -837,15 +838,15 @@ def make_VIT000001():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     ax1.set_ylabel("Loss GFIM")
-    ax1.set_ylim([5000,20000])
-    #ax1.set_yscale('log')
+    ax1.set_ylim([1000,100000])
+    ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,200])
-    ax1.yaxis.set_minor_locator(ticker.AutoMinorLocator(5))
+    ax1.set_xlim([1,300])
+    #ax1.yaxis.set_minor_locator(ticker.AutoMinorLocator(5))
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,100,200])
+    ax1.xaxis.set_ticks([1,100,200,300])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -879,7 +880,7 @@ def make_VIT000001():
     ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
 
     con1 = ConnectionPatch(xyA=(1,1),
-                        xyB=(0,0.82),
+                        xyB=(0,1),
                         coordsA="axes fraction",
                         coordsB="axes fraction",
                         axesA=ax1,
@@ -887,7 +888,7 @@ def make_VIT000001():
                         color="black",
                         linestyle="--",)
     con2 = ConnectionPatch(xyA=(1,0),
-                        xyB=(0,0.5),
+                        xyB=(0,0.33),
                         coordsA="axes fraction",
                         coordsB="axes fraction",
                         axesA=ax1,
