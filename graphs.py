@@ -110,9 +110,13 @@ def make_T1GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=T1FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    #set y label location to above the y axis
+
     ax1.set_ylim([1,40])
     ax1.yaxis.set_ticks([1,10,20,30,40])
+    ax1.yaxis.set_label_coords(0.1,1.02)
+    #ax1.yaxis.set_label_rotation(90)
 
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,100])
@@ -141,8 +145,10 @@ def make_T1GFIM():
     ax2.set_xlim([1,70])
     ax2.xaxis.set_ticks([1,20,40,60])
 
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    
     ax2.yaxis.set_label_position("right")
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
@@ -189,9 +195,10 @@ def make_T2GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
     ax1.set_ylim([1,200])
     ax1.yaxis.set_ticks([1,50,100,150,200])
+    ax1.yaxis.set_label_coords(0.1,1.02)
 
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,100])
@@ -220,10 +227,12 @@ def make_T2GFIM():
     #set the range of x axis
     ax2.set_xlim([1,120])
     ax2.xaxis.set_ticks([1,20,40,60,80,100,120])
+    
 
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.set_yscale('log')
     ax2.set_ylim([1e-12,1e4])
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
@@ -271,7 +280,8 @@ def make_T3GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_ylim([1,2000])
     ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,200,400,600,800,1000,1200,1400,1600,1800,2000])
@@ -305,8 +315,9 @@ def make_T3GFIM():
     ax2.set_xlim([1,160])
     ax2.xaxis.set_ticks([1,50,100,150])
 
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
     ax2.yaxis.set_label_position("right")
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
     ax2.set_ylim([1e-12,1e5])
@@ -353,7 +364,8 @@ def make_T4GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_ylim([10,100000])
     ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,100000])
@@ -387,7 +399,8 @@ def make_T4GFIM():
     ax2.set_xlim([1,50])
     ax2.xaxis.set_ticks([1,10,20,30,40,50])
 
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.set_yscale('log')
@@ -504,32 +517,33 @@ def make_HAMcom():
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(252),width_ratios=[1, 2],gridspec_kw={'wspace': 0.12})
 
-    sea.lineplot(ax=ax2,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
-    sea.lineplot(ax=ax2,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
-    sea.lineplot(ax=ax2,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
-    sea.lineplot(ax=ax2,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
-    sea.lineplot(ax=ax2,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
-    sea.lineplot(ax=ax2,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
-    sea.lineplot(ax=ax2,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
-    sea.lineplot(ax=ax2,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    sea.lineplot(ax=ax2,x="Step",y="0",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[7])
 
-    sea.lineplot(ax=ax2,x="Step",y="0",data=FIM1step,label="0 (Low)",linewidth=linsize,color=cols[0],linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="1",data=FIM1step,label="1",linewidth=linsize,color=cols[1],linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="2",data=FIM1step,label="2",linewidth=linsize,color=cols[2], linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="3",data=FIM1step,label="3",linewidth=linsize,color=cols[3],linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="4",data=FIM1step,label="4",linewidth=linsize,color=cols[4], linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="5",data=FIM1step,label="5",linewidth=linsize,color=cols[5], linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="6",data=FIM1step,label="6",linewidth=linsize,color=cols[6], linestyle='--')
-    sea.lineplot(ax=ax2,x="Step",y="7",data=FIM1step,label="7 (High)",linewidth=linsize,color=cols[7], linestyle='--')
+    sea.lineplot(ax=ax2,x="Step",y="0",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[0],linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="1",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[1],linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="2",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[2], linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="3",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[3],linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="4",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[4], linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="5",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[5], linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="6",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[6], linestyle='-.')
+    sea.lineplot(ax=ax2,x="Step",y="7",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[7], linestyle='-.')
 
     ax2.set_xlabel("Epoch")
     ax2.set_xlim([1,20])
     ax2.set_xticks([1,5,10,15,20])
     
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.set_yscale('log')
     ax2.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
-    ax2.get_legend().remove()
+    #ax2.get_legend().remove()
 
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
@@ -549,22 +563,28 @@ def make_HAMcom():
     sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
 
-    sea.lineplot(ax=ax1,x="Step",y="0",data=FIM1step,label="0 (Low)",linewidth=linsize,color=cols[0],linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="1",data=FIM1step,label="1",linewidth=linsize,color=cols[1],linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="2",data=FIM1step,label="2",linewidth=linsize,color=cols[2], linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="3",data=FIM1step,label="3",linewidth=linsize,color=cols[3],linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="4",data=FIM1step,label="4",linewidth=linsize,color=cols[4], linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="5",data=FIM1step,label="5",linewidth=linsize,color=cols[5], linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="6",data=FIM1step,label="6",linewidth=linsize,color=cols[6], linestyle='--')
-    sea.lineplot(ax=ax1,x="Step",y="7",data=FIM1step,label="7 (High)",linewidth=linsize,color=cols[7], linestyle='--')
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[0],linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[1],linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[2], linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[3],linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[4], linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[5], linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[6], linestyle='-.')
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[7], linestyle='-.')
 
     ax1.set_xlabel("Batch")
     ax1.set_xlim([1,200])
     ax1.set_xticks([1,100,200])
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_yscale('log')
     ax1.set_ylim([1e0,1e5])
     ax1.get_legend().remove()
+    fig.legend(loc='lower center',ncol=8,frameon=False,bbox_to_anchor=(0.5, -0.18),fontsize=5)
+    legend1 = plt.legend([plt.Line2D([0], [0], color='black', lw=linsize,linestyle='-'),
+                    plt.Line2D([0], [0], color='black', lw=linsize,linestyle='-.')],
+                    ['No Pretraining', 'Pretraining'],
+                    loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(0.2, -0.44),fontsize=5)
 
     con1 = ConnectionPatch(xyA=(1,1),
                         xyB=(0,1),
@@ -573,7 +593,8 @@ def make_HAMcom():
                         axesA=ax1,
                         axesB=ax2,
                         color="black",
-                        linestyle="--",)
+                        linestyle="--",
+                        linewidth=linsize,)
     con2 = ConnectionPatch(xyA=(1,0),
                         xyB=(0,0.7),
                         coordsA="axes fraction",
@@ -581,12 +602,10 @@ def make_HAMcom():
                         axesA=ax1,
                         axesB=ax2,
                         color="black",
-                        linestyle="--",)
+                        linestyle="--",
+                        linewidth=linsize,)
     ax1.add_artist(con1)
     ax1.add_artist(con2)
-    
-
-
 
     fig.savefig("Pics/HAM1.png", bbox_inches='tight', dpi=500)
 
@@ -671,7 +690,8 @@ def make_VIT0001():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_ylim([1e2,10000])
     ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
@@ -705,7 +725,8 @@ def make_VIT0001():
     ax2.set_yscale('log')
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
     ax2.set_xticks([1,25,50,75,100])
     ax2.set_xlim([1,100])
     ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
@@ -753,7 +774,8 @@ def make_VIT00001():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_ylim([1e2,1e5])
     ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
@@ -786,7 +808,8 @@ def make_VIT00001():
     ax2.set_yscale('log')
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
     #ax.set_ylabel("Loss GFIM")
     ax2.set_xticks([1,100,200,300,375])
     ax2.set_xlim([1,375])
@@ -837,7 +860,8 @@ def make_VIT000001():
     sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
-    ax1.set_ylabel("Loss GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_ylim([1000,100000])
     ax1.set_yscale('log')
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
@@ -872,7 +896,8 @@ def make_VIT000001():
     ax2.set_ylim([1e2,1e5])
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
-    ax2.set_ylabel("Loss GFIM")
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
     #ax.set_ylabel("Loss GFIM")
     ax2.set_xticks([1,100,200,300,375])
     ax2.set_xlim([1,375])
@@ -901,5 +926,5 @@ def make_VIT000001():
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
 #make_VIT00001()
-make_T3GFIM()
+make_VIT000001()
 #make_VIT()
