@@ -670,6 +670,89 @@ def make_VIT():
 
     fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
 
+def make_VIT001():
+    #001--------------------------------------------------------------------------------
+
+    FIMstep = pd.read_csv('VIT001_step.csv', sep=',')
+    #T1FIMstep = T1FIMstep.iloc[::4]
+    print(FIMstep.head())
+
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1,2])
+    sea.set(style="whitegrid")
+    
+    sea.lineplot(ax=ax1,x="Step",y="0",data=FIMstep,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=FIMstep,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=FIMstep,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=FIMstep,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=FIMstep,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=FIMstep,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=FIMstep,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
+    
+    #plt.ylabel("T1 GFIM")
+    ax1.set_ylabel("Loss GFIM",rotation=0)
+    ax1.yaxis.set_label_coords(0.1,1.02)
+    ax1.set_ylim([1e0,100000])
+    ax1.set_yscale('log')
+    #ax1.yaxis.set_ticks([1,50,100,150,200,250])
+
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,200])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,100,200])
+    ax1.get_legend().remove()
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    #Epoch graphs
+    T1FIMepoch = pd.read_csv('VIT001.csv', sep=',')
+    T1FIMepoch['Step'] = T1FIMepoch['Step']+1
+    #T1FIMepoch = T1FIMepoch.iloc[:65]
+    #print(T1FIMepoch.head())
+    sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=T1FIMepoch,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=T1FIMepoch,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=T1FIMepoch,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.get_legend().remove()
+    ax2.set_xlabel("Epoch")
+    ax2.set_yscale('log')
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.yaxis.set_label_coords(1,1.1)
+    ax2.set_xticks([1,25,50,75,100])
+    ax2.set_xlim([1,100])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,1),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.70),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
+
+    fig.savefig("Pics/VIT001.png", bbox_inches='tight', dpi=500)
+
 def make_VIT0001():
     #0001--------------------------------------------------------------------------------
 
@@ -926,5 +1009,5 @@ def make_VIT000001():
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
 #make_VIT00001()
-make_VIT000001()
+make_VIT001()
 #make_VIT()
