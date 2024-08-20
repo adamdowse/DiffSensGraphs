@@ -344,9 +344,9 @@ def make_loss():
     T2 = pd.read_csv('T2_stats.csv',sep=',')
     T3 = pd.read_csv('T3_stats.csv',sep=',')
     T4 = pd.read_csv('T4_stats.csv',sep=',')
-
-    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,height=129,fraction=1),gridspec_kw={'wspace': 0.1,'hspace':0.2},width_ratios=[1, 1])
-
+    
+    fig, ((ax1),(ax2)) = plt.subplots(2,1,figsize=set_size(516,fraction=0.5),gridspec_kw={'hspace':0.1})
+    sea.set(style="whitegrid")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T1,linewidth=linsize,linestyle='-',color='r',label="ResNetV1-14")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T2,linewidth=linsize,linestyle='-',color='g',label="CNN 5")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T3,linewidth=linsize,linestyle='-',color='b',label="CNN 8")
@@ -358,17 +358,26 @@ def make_loss():
     sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T4,linewidth=linsize,linestyle='--',color='m')
 
     ax1.set_ylabel("Accuracy")
-    ax1.set_xlabel("Epochs")
+    ax1.set_ylim([0.2,1.1])
+    ax1.yaxis.set_ticks([0.2,0.4,0.6,0.8,1])
+    ax1.set_xlabel("")
     ax1.set_xlim([1,150])
     ax1.xaxis.set_ticks([1,25,50,75,100,125,150])
-    ax1.legend(loc='center', bbox_to_anchor=(1, -0.4),ncol=4)
+    ax1.tick_params(axis='x', labelbottom=False)
+    ax1.legend(loc='center', bbox_to_anchor=(0.5, -1.8),ncol=4,prop={'size': 6},frameon=False)
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
 
     ax2.set_ylabel("Loss")
-    ax2.yaxis.set_label_position("right")
-    ax2.yaxis.tick_right()
+    ax2.yaxis.set_ticks([0,1,2,3,4])
+    #ax2.set_yscale('log')
+    #ax2.yaxis.set_label_position("right")
+    #ax2.yaxis.tick_right()
     ax2.set_xlabel("Epochs")
     ax2.set_xlim([1,150])
     ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
 
     sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T1,linewidth=linsize,linestyle='-',color='r')
     sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T2,linewidth=linsize,linestyle='-',color='g')
@@ -1305,6 +1314,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_enorm()
+make_loss()
 
 #make_VIT()
