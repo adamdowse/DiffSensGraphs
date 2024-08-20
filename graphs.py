@@ -55,7 +55,7 @@ plt.rcParams.update({
 
 #cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
 cols = ["#0410ff","#383be6","#5c4ccd","#7e53b3","#9e5398","#bf4d7b","#df3e59","#ff1223"]
-linsize = 0.5
+linsize = 0.3
 
 #OriginalFIM
 def make_OGFIM():
@@ -92,6 +92,297 @@ def make_OGFIM():
     #save the plot
     fig.savefig("Pics/OGFIM.png", bbox_inches='tight', dpi=500)
 
+def make_eloss():
+    bloss = pd.read_csv('E_bloss.csv',sep=',')
+    bnorm = pd.read_csv('E_bnorm.csv',sep=',')
+    bcos = pd.read_csv('E_bcos.csv',sep=',')
+    bFIM = pd.read_csv('T2_batchV2.csv',sep=',')
+
+    loss = pd.read_csv('E_loss.csv',sep=',')
+    norm = pd.read_csv('E_norm.csv',sep=',')
+    cos = pd.read_csv('E_cos.csv',sep=',')
+    FIM = pd.read_csv('T2_epochV2.csv',sep=',')
+
+
+    #loss
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12,'hspace':0.2},width_ratios=[1, 2])
+    sea.lineplot(ax=ax1,x="Step",y="0",data=bloss,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=bloss,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=bloss,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=bloss,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=bloss,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=bloss,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=bloss,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=bloss,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_ylabel("",rotation=0)
+    #ax1.set_ylim((10**0,10**3))
+    #ax1.yaxis.set_ticks([1,50,100,150,200])
+    ax1.yaxis.set_label_coords(0.1,1.02)
+    #ax1.set_yscale('log')
+
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,1500])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+    
+    ax1.get_legend().remove()
+
+    sea.lineplot(ax=ax2,x="Step",y="0",data=loss,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=loss,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=loss,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=loss,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=loss,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=loss,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=loss,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=loss,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
+    
+
+    ax2.set_ylabel("",rotation=0)
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.yaxis.set_label_coords(1,1.1)
+    ax2.set_yscale('log')
+    #ax2.set_ylim([1e-10,1e5])
+    #ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    ax2.get_legend().remove()
+
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.95),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.9),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
+
+
+    fig.savefig("Pics/E_loss.png", bbox_inches='tight', dpi=500)
+
+def make_ecos():
+    bloss = pd.read_csv('E_bloss.csv',sep=',')
+    bnorm = pd.read_csv('E_bnorm.csv',sep=',')
+    bcos = pd.read_csv('E_bcos.csv',sep=',')
+    bFIM = pd.read_csv('T2_batchV2.csv',sep=',')
+
+    loss = pd.read_csv('E_loss.csv',sep=',')
+    norm = pd.read_csv('E_norm.csv',sep=',')
+    cos = pd.read_csv('E_cos.csv',sep=',')
+    FIM = pd.read_csv('T2_epochV2.csv',sep=',')
+
+
+    #loss
+    r = 2
+    bcos['0']= bcos['0'].rolling(r).mean()
+    bcos['1']= bcos['1'].rolling(r).mean()
+    bcos['2']= bcos['2'].rolling(r).mean()
+    bcos['3']= bcos['3'].rolling(r).mean()
+    bcos['4']= bcos['4'].rolling(r).mean()
+    bcos['5']= bcos['5'].rolling(r).mean()
+    bcos['6']= bcos['6'].rolling(r).mean()
+    bcos['7']= bcos['7'].rolling(r).mean()
+
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12,'hspace':0.2},width_ratios=[1, 2])
+    sea.lineplot(ax=ax1,x="Step",y="0",data=bcos,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=bcos,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=bcos,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_ylabel("",rotation=0)
+    ax1.set_ylim((-1,1))
+    #ax1.yaxis.set_ticks([1,50,100,150,200])
+    ax1.yaxis.set_label_coords(0.1,1.02)
+    #ax1.set_yscale('log')
+
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,1500])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+    
+    ax1.get_legend().remove()
+
+    #cos['0'] = cos['0'].rolling(2).mean()
+    #cos['4'] = cos['4'].rolling(2).mean()
+    #cos['7'] = cos['7'].rolling(2).mean()
+
+    sea.lineplot(ax=ax2,x="Step",y="0",data=cos,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=cos,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=cos,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
+    
+
+    ax2.set_ylabel("",rotation=0)
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.yaxis.set_label_coords(1,1.1)
+    #ax2.set_yscale('log')
+    ax2.set_ylim([-1,1])
+    #ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    ax2.get_legend().remove()
+
+    
+
+
+    fig.savefig("Pics/E_cos.png", bbox_inches='tight', dpi=500)
+
+def make_enorm():
+    bloss = pd.read_csv('E_bloss.csv',sep=',')
+    bnorm = pd.read_csv('E_bnorm.csv',sep=',')
+    bcos = pd.read_csv('E_bcos.csv',sep=',')
+    bFIM = pd.read_csv('T2_batchV2.csv',sep=',')
+
+    loss = pd.read_csv('E_loss.csv',sep=',')
+    norm = pd.read_csv('E_norm.csv',sep=',')
+    cos = pd.read_csv('E_cos.csv',sep=',')
+    FIM = pd.read_csv('T2_epochV2.csv',sep=',')
+
+
+    #loss
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12,'hspace':0.2},width_ratios=[1, 2])
+    sea.lineplot(ax=ax1,x="Step",y="0",data=bnorm,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax1,x="Step",y="1",data=bnorm,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax1,x="Step",y="2",data=bnorm,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax1,x="Step",y="3",data=bnorm,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax1,x="Step",y="4",data=bnorm,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax1,x="Step",y="5",data=bnorm,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax1,x="Step",y="6",data=bnorm,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax1,x="Step",y="7",data=bnorm,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax1.set_ylabel("",rotation=0)
+    #ax1.set_ylim((10**0,10**3))
+    #ax1.yaxis.set_ticks([1,50,100,150,200])
+    ax1.yaxis.set_label_coords(0.1,1.02)
+    #ax1.set_yscale('log')
+
+    ax1.set_xlabel("Batch")
+    ax1.set_xlim([1,1500])
+    start,end = ax1.get_xlim()
+    ax1.xaxis.set_ticks([1,750,1500])
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+    
+    ax1.get_legend().remove()
+
+    sea.lineplot(ax=ax2,x="Step",y="0",data=norm,label="0 (Low)",linewidth=linsize,color=cols[0])
+    sea.lineplot(ax=ax2,x="Step",y="1",data=norm,label="1",linewidth=linsize,color=cols[1])
+    sea.lineplot(ax=ax2,x="Step",y="2",data=norm,label="2",linewidth=linsize,color=cols[2])
+    sea.lineplot(ax=ax2,x="Step",y="3",data=norm,label="3",linewidth=linsize,color=cols[3])
+    sea.lineplot(ax=ax2,x="Step",y="4",data=norm,label="4",linewidth=linsize,color=cols[4])
+    sea.lineplot(ax=ax2,x="Step",y="5",data=norm,label="5",linewidth=linsize,color=cols[5])
+    sea.lineplot(ax=ax2,x="Step",y="6",data=norm,label="6",linewidth=linsize,color=cols[6])
+    sea.lineplot(ax=ax2,x="Step",y="7",data=norm,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    ax2.set_xlabel("Epoch")
+    #set the range of x axis
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
+    
+
+    ax2.set_ylabel("",rotation=0)
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.yaxis.set_label_coords(1,1.1)
+    ax2.set_yscale('log')
+    #ax2.set_ylim([1e-10,1e5])
+    #ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
+
+    ax2.get_legend().remove()
+    con1 = ConnectionPatch(xyA=(1,1),
+                        xyB=(0,0.9),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    con2 = ConnectionPatch(xyA=(1,0),
+                        xyB=(0,0.85),
+                        coordsA="axes fraction",
+                        coordsB="axes fraction",
+                        axesA=ax1,
+                        axesB=ax2,
+                        color="black",
+                        linestyle="--",)
+    ax1.add_artist(con1)
+    ax1.add_artist(con2)
+
+
+    fig.savefig("Pics/E_norm.png", bbox_inches='tight', dpi=500)
+
+def make_loss():
+    T1 = pd.read_csv('T1_stats.csv',sep=',')
+    T2 = pd.read_csv('T2_stats.csv',sep=',')
+    T3 = pd.read_csv('T3_stats.csv',sep=',')
+    T4 = pd.read_csv('T4_stats.csv',sep=',')
+
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,height=129,fraction=1),gridspec_kw={'wspace': 0.1,'hspace':0.2},width_ratios=[1, 1])
+
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T1,linewidth=linsize,linestyle='-',color='r',label="ResNetV1-14")
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T2,linewidth=linsize,linestyle='-',color='g',label="CNN 5")
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T3,linewidth=linsize,linestyle='-',color='b',label="CNN 8")
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T4,linewidth=linsize,linestyle='-',color='m',label="ResNet18")
+
+    sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T1,linewidth=linsize,linestyle='--',color='r')
+    sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T2,linewidth=linsize,linestyle='--',color='g')
+    sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T3,linewidth=linsize,linestyle='--',color='b')
+    sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T4,linewidth=linsize,linestyle='--',color='m')
+
+    ax1.set_ylabel("Accuracy")
+    ax1.set_xlabel("Epochs")
+    ax1.set_xlim([1,150])
+    ax1.xaxis.set_ticks([1,25,50,75,100,125,150])
+    ax1.legend(loc='center', bbox_to_anchor=(1, -0.4),ncol=4)
+
+    ax2.set_ylabel("Loss")
+    ax2.yaxis.set_label_position("right")
+    ax2.yaxis.tick_right()
+    ax2.set_xlabel("Epochs")
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
+
+    sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T1,linewidth=linsize,linestyle='-',color='r')
+    sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T2,linewidth=linsize,linestyle='-',color='g')
+    sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T3,linewidth=linsize,linestyle='-',color='b')
+    sea.lineplot(ax=ax2,x="Step",y="train_loss",data=T4,linewidth=linsize,linestyle='-',color='m')
+
+    sea.lineplot(ax=ax2,x="Step",y="test_loss",data=T1,linewidth=linsize,linestyle='--',color='r')
+    sea.lineplot(ax=ax2,x="Step",y="test_loss",data=T2,linewidth=linsize,linestyle='--',color='g')
+    sea.lineplot(ax=ax2,x="Step",y="test_loss",data=T3,linewidth=linsize,linestyle='--',color='b')
+    sea.lineplot(ax=ax2,x="Step",y="test_loss",data=T4,linewidth=linsize,linestyle='--',color='m')
+
+    fig.savefig("Pics/stats.png", bbox_inches='tight', dpi=500)
+
+
 def make_T1GFIM():
     T1FIMstep = pd.read_csv('T1_step.csv', sep=',')
     T1FIMstep = T1FIMstep.iloc[::1]
@@ -113,15 +404,16 @@ def make_T1GFIM():
     ax1.set_ylabel("Loss GFIM",rotation=0)
     #set y label location to above the y axis
 
-    ax1.set_ylim([1,40])
+    #ax1.set_ylim([1,40])
     ax1.yaxis.set_ticks([1,10,20,30,40])
     ax1.yaxis.set_label_coords(0.1,1.02)
+    ax1.set_yscale('log')
     #ax1.yaxis.set_label_rotation(90)
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,100])
+    ax1.set_xlim([1,500])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100])
+    ax1.xaxis.set_ticks([1,250,500])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -129,7 +421,7 @@ def make_T1GFIM():
     #Epoch graphs
     T1FIMepoch = pd.read_csv('T1_epoch.csv', sep=',')
     T1FIMepoch['Step'] = T1FIMepoch['Step']+1
-    T1FIMepoch = T1FIMepoch.iloc[:65]
+    #T1FIMepoch = T1FIMepoch.iloc[:65]
     print(T1FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -142,8 +434,8 @@ def make_T1GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,70])
-    ax2.xaxis.set_ticks([1,20,40,60])
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
 
     ax2.set_ylabel("Loss GFIM",rotation=0)
     
@@ -176,10 +468,12 @@ def make_T1GFIM():
                         linestyle="--",)
     ax1.add_artist(con1)
     ax1.add_artist(con2)
+
+
     fig.savefig("Pics/T1_GFIM.png", bbox_inches='tight', dpi=500)
 
 def make_T2GFIM():
-    FIMstep = pd.read_csv('T2_step.csv', sep=',')
+    FIMstep = pd.read_csv('T2_batchV2.csv', sep=',')
     FIMstep = FIMstep.iloc[::1]
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,fraction=0.5),gridspec_kw={'wspace': 0.12},width_ratios=[1, 2])
@@ -195,22 +489,23 @@ def make_T2GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("Loss GFIM",rotation=0)
-    ax1.set_ylim([1,200])
-    ax1.yaxis.set_ticks([1,50,100,150,200])
+    ax1.set_ylabel("",rotation=0)
+    ax1.set_ylim((10**0,10**3))
+    #ax1.yaxis.set_ticks([1,50,100,150,200])
     ax1.yaxis.set_label_coords(0.1,1.02)
+    ax1.set_yscale('log')
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,100])
+    ax1.set_xlim([1,1500])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100])
+    ax1.xaxis.set_ticks([1,750,1500])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     
     ax1.get_legend().remove()
 
     #Epoch graphs
-    FIMepoch = pd.read_csv('T2_epoch.csv', sep=',')
+    FIMepoch = pd.read_csv('T2_epochV2.csv', sep=',')
     #add 1 to the step
     FIMepoch['Step'] = FIMepoch['Step']+1
     print(FIMepoch.head())
@@ -225,8 +520,8 @@ def make_T2GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,120])
-    ax2.xaxis.set_ticks([1,20,40,60,80,100,120])
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
     
 
     ax2.set_ylabel("Loss GFIM",rotation=0)
@@ -234,7 +529,7 @@ def make_T2GFIM():
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_coords(1,1.1)
     ax2.set_yscale('log')
-    ax2.set_ylim([1e-12,1e4])
+    ax2.set_ylim([1e-10,1e5])
     ax2.yaxis.set_ticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
     ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax2.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -287,9 +582,9 @@ def make_T3GFIM():
     #ax1.yaxis.set_ticks([1,200,400,600,800,1000,1200,1400,1600,1800,2000])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,100])
+    ax1.set_xlim([1,500])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,50,100])
+    ax1.xaxis.set_ticks([1,250,500])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -312,8 +607,8 @@ def make_T3GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,160])
-    ax2.xaxis.set_ticks([1,50,100,150])
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
 
     ax2.set_ylabel("Loss GFIM",rotation=0)
     ax2.yaxis.set_label_position("right")
@@ -372,8 +667,8 @@ def make_T4GFIM():
     #ax1.set_yscale('log')
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,50])
-    ax1.xaxis.set_ticks([1,25,50])
+    ax1.set_xlim([1,400])
+    ax1.xaxis.set_ticks([1,200,400])
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
     ax1.get_legend().remove()
@@ -383,7 +678,7 @@ def make_T4GFIM():
     #add 1 to the step
     FIMepoch['Step'] = FIMepoch['Step']+1
     #use the top 60 epochs
-    FIMepoch = FIMepoch.iloc[:60]
+    #FIMepoch = FIMepoch.iloc[:60]
     print(FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -396,8 +691,8 @@ def make_T4GFIM():
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
-    ax2.set_xlim([1,50])
-    ax2.xaxis.set_ticks([1,10,20,30,40,50])
+    ax2.set_xlim([1,150])
+    ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
 
     ax2.set_ylabel("Loss GFIM",rotation=0)
     ax2.yaxis.set_label_coords(1,1.1)
@@ -1009,5 +1304,7 @@ def make_VIT000001():
     fig.savefig("Pics/VIT000001.png", bbox_inches='tight', dpi=500)
 
 #make_VIT00001()
-make_VIT001()
+
+make_enorm()
+
 #make_VIT()
