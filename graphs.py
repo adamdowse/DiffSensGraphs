@@ -348,8 +348,8 @@ def make_loss():
     fig, ((ax1),(ax2)) = plt.subplots(2,1,figsize=set_size(516,fraction=0.5),gridspec_kw={'hspace':0.1})
     sea.set(style="whitegrid")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T1,linewidth=linsize,linestyle='-',color='r',label="ResNetV1-14")
-    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T2,linewidth=linsize,linestyle='-',color='g',label="CNN 5")
-    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T3,linewidth=linsize,linestyle='-',color='b',label="CNN 8")
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T2,linewidth=linsize,linestyle='-',color='g',label="ResNet56")
+    sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T3,linewidth=linsize,linestyle='-',color='b',label="CNN 5")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T4,linewidth=linsize,linestyle='-',color='m',label="ResNet18")
 
     sea.lineplot(ax=ax1,x="Step",y="test_acc",data=T1,linewidth=linsize,linestyle='--',color='r')
@@ -1314,6 +1314,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_T2GFIM()
+make_loss()
 
 #make_VIT()
