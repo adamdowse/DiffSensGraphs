@@ -430,7 +430,9 @@ def make_T1GFIM():
     #Epoch graphs
     T1FIMepoch = pd.read_csv('T1_epoch.csv', sep=',')
     T1FIMepoch['Step'] = T1FIMepoch['Step']+1
+    T1FIMepoch = T1FIMepoch.iloc[:, : 9]
     #T1FIMepoch = T1FIMepoch.iloc[:65]
+    T1FIMepoch['avg'] = T1FIMepoch.iloc[:, 1: 9].mean(axis=1)
     print(T1FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=T1FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=T1FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -440,6 +442,9 @@ def make_T1GFIM():
     sea.lineplot(ax=ax2,x="Step",y="5",data=T1FIMepoch,label="5",linewidth=linsize,color=cols[5])
     sea.lineplot(ax=ax2,x="Step",y="6",data=T1FIMepoch,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax2,x="Step",y="7",data=T1FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    
+    sea.lineplot(ax=ax2,x="Step",y="avg",data=T1FIMepoch,linewidth=linsize,linestyle=":",color="black")
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
@@ -498,7 +503,7 @@ def make_T2GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("",rotation=0)
+    ax1.set_ylabel("GFIM",rotation=0)
     ax1.set_ylim((10**0,10**3))
     #ax1.yaxis.set_ticks([1,50,100,150,200])
     ax1.yaxis.set_label_coords(0.1,1.02)
@@ -517,6 +522,7 @@ def make_T2GFIM():
     FIMepoch = pd.read_csv('T2_epochV2.csv', sep=',')
     #add 1 to the step
     FIMepoch['Step'] = FIMepoch['Step']+1
+    FIMepoch['avg'] = FIMepoch.iloc[:, 1: 9].mean(axis=1)
     print(FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -527,13 +533,15 @@ def make_T2GFIM():
     sea.lineplot(ax=ax2,x="Step",y="6",data=FIMepoch,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax2,x="Step",y="7",data=FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
 
+    sea.lineplot(ax=ax2,x="Step",y="avg",data=FIMepoch,linewidth=linsize,linestyle=":",color="black")
+
     ax2.set_xlabel("Epoch")
     #set the range of x axis
     ax2.set_xlim([1,150])
     ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
     
 
-    ax2.set_ylabel("",rotation=0)
+    ax2.set_ylabel("GFIM",rotation=0)
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_coords(1,1.1)
@@ -563,7 +571,7 @@ def make_T2GFIM():
                         linestyle="--",)
     ax1.add_artist(con1)
     ax1.add_artist(con2)
-    fig.savefig("Pics/T2_GFIM_nolabel.png", bbox_inches='tight', dpi=500)
+    fig.savefig("Pics/T2_GFIM.png", bbox_inches='tight', dpi=500)
 
 def make_T3GFIM():
     FIMstep = pd.read_csv('T3_step.csv', sep=',')
@@ -604,6 +612,7 @@ def make_T3GFIM():
     FIMepoch['Step'] = FIMepoch['Step']+1
     #use the top 60 epochs
     #FIMepoch = FIMepoch.iloc[:60]
+    FIMepoch['avg'] = FIMepoch.iloc[:, 1: 9].mean(axis=1)
     print(FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -613,6 +622,8 @@ def make_T3GFIM():
     sea.lineplot(ax=ax2,x="Step",y="5",data=FIMepoch,label="5",linewidth=linsize,color=cols[5])
     sea.lineplot(ax=ax2,x="Step",y="6",data=FIMepoch,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax2,x="Step",y="7",data=FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    sea.lineplot(ax=ax2,x="Step",y="avg",data=FIMepoch,linewidth=linsize,linestyle=":",color="black")
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
@@ -688,6 +699,7 @@ def make_T4GFIM():
     FIMepoch['Step'] = FIMepoch['Step']+1
     #use the top 60 epochs
     #FIMepoch = FIMepoch.iloc[:60]
+    FIMepoch['avg'] = FIMepoch.iloc[:, 1: 9].mean(axis=1)
     print(FIMepoch.head())
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMepoch,label="0 (Low)",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMepoch,label="1",linewidth=linsize,color=cols[1])
@@ -697,6 +709,8 @@ def make_T4GFIM():
     sea.lineplot(ax=ax2,x="Step",y="5",data=FIMepoch,label="5",linewidth=linsize,color=cols[5])
     sea.lineplot(ax=ax2,x="Step",y="6",data=FIMepoch,label="6",linewidth=linsize,color=cols[6])
     sea.lineplot(ax=ax2,x="Step",y="7",data=FIMepoch,label="7 (High)",linewidth=linsize,color=cols[7])
+
+    sea.lineplot(ax=ax2,x="Step",y="avg",data=FIMepoch,linewidth=linsize,linestyle=":",color="black")
 
     ax2.set_xlabel("Epoch")
     #set the range of x axis
@@ -1314,6 +1328,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_loss()
+make_T4GFIM()
 
 #make_VIT()
