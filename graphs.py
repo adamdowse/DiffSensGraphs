@@ -533,7 +533,7 @@ def make_T2GFIM():
     ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
     
 
-    ax2.set_ylabel("Loss GFIM",rotation=0)
+    ax2.set_ylabel("",rotation=0)
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_coords(1,1.1)
@@ -563,7 +563,7 @@ def make_T2GFIM():
                         linestyle="--",)
     ax1.add_artist(con1)
     ax1.add_artist(con2)
-    fig.savefig("Pics/T2_GFIM.png", bbox_inches='tight', dpi=500)
+    fig.savefig("Pics/T2_GFIM_nolabel.png", bbox_inches='tight', dpi=500)
 
 def make_T3GFIM():
     FIMstep = pd.read_csv('T3_step.csv', sep=',')
@@ -1314,6 +1314,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_loss()
+make_T2GFIM()
 
 #make_VIT()
