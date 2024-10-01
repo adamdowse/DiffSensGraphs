@@ -55,7 +55,7 @@ plt.rcParams.update({
 
 #cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
 cols = ["#0410ff","#383be6","#5c4ccd","#7e53b3","#9e5398","#bf4d7b","#df3e59","#ff1223"]
-linsize = 0.3
+linsize = 0.6
 
 #OriginalFIM
 def make_OGFIM():
@@ -345,7 +345,7 @@ def make_loss():
     T3 = pd.read_csv('T3_stats.csv',sep=',')
     T4 = pd.read_csv('T4_stats.csv',sep=',')
     
-    fig, ((ax1),(ax2)) = plt.subplots(2,1,figsize=set_size(516,fraction=0.5),gridspec_kw={'hspace':0.1})
+    fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(516,height=128,fraction=1),gridspec_kw={'hspace':0.1})
     sea.set(style="whitegrid")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T1,linewidth=linsize,linestyle='-',color='r',label="ResNetV1-14")
     sea.lineplot(ax=ax1,x="Step",y="train_acc",data=T2,linewidth=linsize,linestyle='-',color='g',label="ResNet56")
@@ -360,11 +360,11 @@ def make_loss():
     ax1.set_ylabel("Accuracy")
     ax1.set_ylim([0.2,1.1])
     ax1.yaxis.set_ticks([0.2,0.4,0.6,0.8,1])
-    ax1.set_xlabel("")
+    ax1.set_xlabel("Epochs")
     ax1.set_xlim([1,150])
     ax1.xaxis.set_ticks([1,25,50,75,100,125,150])
-    ax1.tick_params(axis='x', labelbottom=False)
-    ax1.legend(loc='center', bbox_to_anchor=(0.5, -1.8),ncol=4,prop={'size': 6},frameon=False)
+    ax1.tick_params(axis='x', labelbottom=True)
+    ax1.legend(loc='center', bbox_to_anchor=(1, -0.4),ncol=4,prop={'size': 6},frameon=False)
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='both',linestyle='--',linewidth=0.2,alpha=0.5)
 
@@ -503,7 +503,7 @@ def make_T2GFIM():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIMstep,label="7 (High)",linewidth=linsize,color=cols[7])
     
     #plt.ylabel("T1 GFIM")
-    ax1.set_ylabel("GFIM",rotation=0)
+    ax1.set_ylabel("Loss GFIM",rotation=0)
     ax1.set_ylim((10**0,10**3))
     #ax1.yaxis.set_ticks([1,50,100,150,200])
     ax1.yaxis.set_label_coords(0.1,1.02)
@@ -541,7 +541,7 @@ def make_T2GFIM():
     ax2.xaxis.set_ticks([1,25,50,75,100,125,150])
     
 
-    ax2.set_ylabel("GFIM",rotation=0)
+    ax2.set_ylabel("Loss GFIM",rotation=0)
     ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_coords(1,1.1)
@@ -1328,6 +1328,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_T4GFIM()
+make_loss()
 
 #make_VIT()
