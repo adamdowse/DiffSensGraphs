@@ -55,7 +55,7 @@ plt.rcParams.update({
 
 #cols = ["#2b1c8f","#7037a3","#a458b7","#d37ccd","#ffa4e4","#fc8bc5","#f672a4","#ec5980"]
 cols = ["#0410ff","#383be6","#5c4ccd","#7e53b3","#9e5398","#bf4d7b","#df3e59","#ff1223"]
-linsize = 0.6
+linsize = 0.3
 
 #OriginalFIM
 def make_OGFIM():
@@ -827,14 +827,15 @@ def make_HAMcom():
     FIMstep = pd.read_csv('HAM_nopre.csv', sep=',')
     FIMstep['Step'] = FIMstep['Step']+1
     #take first 20 epochs
-    FIMstep = FIMstep.iloc[:20]
+    FIMstep = FIMstep.iloc[:437]
     print(FIMstep.head())
+    
 
     FIM1step = pd.read_csv('HAM_pre.csv', sep=',')
     FIM1step['Step'] = FIM1step['Step']+1
 
     fig, (ax1,ax2) = plt.subplots(1,2,figsize=set_size(252),width_ratios=[1, 2],gridspec_kw={'wspace': 0.12})
-
+    sea.set(style="whitegrid")
     sea.lineplot(ax=ax2,x="Step",y="0",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[0])
     sea.lineplot(ax=ax2,x="Step",y="1",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[1])
     sea.lineplot(ax=ax2,x="Step",y="2",data=FIMstep,label="_nolegend_",linewidth=linsize,color=cols[2])
@@ -861,6 +862,8 @@ def make_HAMcom():
     ax2.yaxis.set_label_coords(1,1.1)
     ax2.set_yscale('log')
     ax2.set_yticks([1e-12,1e-10,1e-8,1e-6,1e-4,1e-2,1e0,1e2,1e4])
+    ax2.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax2.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
     #ax2.get_legend().remove()
 
     ax2.yaxis.set_label_position("right")
@@ -891,14 +894,16 @@ def make_HAMcom():
     sea.lineplot(ax=ax1,x="Step",y="7",data=FIM1step,label="_nolegend_",linewidth=linsize,color=cols[7], linestyle='-.')
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,200])
+    ax1.set_xlim([1,225])
     ax1.set_xticks([1,100,200])
     ax1.set_ylabel("Loss GFIM",rotation=0)
     ax1.yaxis.set_label_coords(0.1,1.02)
     ax1.set_yscale('log')
-    ax1.set_ylim([1e0,1e5])
+    ax1.set_ylim([1e-1,1e5])
     ax1.get_legend().remove()
     fig.legend(loc='lower center',ncol=8,frameon=False,bbox_to_anchor=(0.5, -0.18),fontsize=5)
+    ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
+    ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
     legend1 = plt.legend([plt.Line2D([0], [0], color='black', lw=linsize,linestyle='-'),
                     plt.Line2D([0], [0], color='black', lw=linsize,linestyle='-.')],
                     ['No Pretraining', 'Pretraining'],
@@ -1015,9 +1020,9 @@ def make_VIT001():
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,200])
+    ax1.set_xlim([1,390])
     start,end = ax1.get_xlim()
-    ax1.xaxis.set_ticks([1,100,200])
+    ax1.xaxis.set_ticks([1,100,200,300])
     ax1.get_legend().remove()
     ax1.grid(True,which='major',axis='both',linestyle='-',linewidth=0.2,alpha=0.5)
     ax1.grid(True,which='minor',axis='y',linestyle='--',linewidth=0.2,alpha=0.5)
@@ -1182,7 +1187,7 @@ def make_VIT00001():
     #ax1.yaxis.set_ticks([1,50,100,150,200,250])
 
     ax1.set_xlabel("Batch")
-    ax1.set_xlim([1,300])
+    ax1.set_xlim([1,390])
     start,end = ax1.get_xlim()
     ax1.xaxis.set_ticks([1,100,200,300])
     ax1.get_legend().remove()
@@ -1328,6 +1333,6 @@ def make_VIT000001():
 
 #make_VIT00001()
 
-make_loss()
+make_VIT00001()
 
 #make_VIT()
